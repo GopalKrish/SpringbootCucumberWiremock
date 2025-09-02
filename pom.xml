@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.dreamzlancer</groupId>
+    <artifactId>cucumbersample</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>cucumbersample</name>
+    <description>Demo project for Spring Boot</description>
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+    <properties>
+        <java.version>21</java.version>
+        <cucumber.version>7.15.0</cucumber.version>
+        <junit.platform.version>1.10.1</junit.platform.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Log4j2 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Cucumber -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JUnit Platform Suite -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Additional test dependencies -->
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>4.2.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Remove default logging if present -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>app.getxray</groupId>
+            <artifactId>xray-maven-plugin</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.3.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wiremock</groupId>
+            <artifactId>wiremock-standalone</artifactId>
+            <version>3.13.1</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <includes>
+                        <include>**/RunCucumberTest.java</include>
+                        <include>**/*CucumberTest.java</include>
+                    </includes>
+                    <testFailureIgnore>false</testFailureIgnore>
+                    <systemPropertyVariables>
+                    <cucumber.plugin>json:target/cucumber-reports/cucumber.json</cucumber.plugin>
+                </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>5.7.0</version>
+                <executions>
+                    <execution>
+                        <id>cucumber-report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <projectName>Spring Boot Cucumber Tests</projectName>
+                            <outputDirectory>${project.build.directory}/cucumber-reports</outputDirectory>
+                            <inputDirectory>${project.build.directory}/cucumber-reports</inputDirectory>
+                            <jsonFiles>
+                                <param>**/*.json</param>
+                            </jsonFiles>
+                            <buildNumber>1</buildNumber>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
+                <groupId>app.getxray</groupId>
+                <artifactId>xray-maven-plugin</artifactId>
+                <version>0.8.0</version>
+
+                <configuration>
+                    <cloud>true</cloud>
+                    <jiraBaseUrl>https://gopal2773.atlassian.net</jiraBaseUrl>
+                    <clientId>A7D5E55BC69E460EB973193769391931</clientId>
+                    <clientSecret>3d958e56727c7147e6de933139de9f4d725ab19dbbdd46aee6a806911aea8259</clientSecret>
+                     <projectKey>SCRUM</projectKey>
+                    <inputFeatures>src/test/resources/features</inputFeatures>
+                    <reportFile>target/cucumber-reports/cucumber.json</reportFile>
+                    <reportFormat>cucumber</reportFormat>
+                    <testPlanKey>SCRUM-3</testPlanKey>
+                  <!--  <testExecInfoJson>src/test/resources/testExecutionInfo.json</testExecInfoJson>-->
+                </configuration>
+            </plugin>
+
+            <!--<plugin>
+                <groupId>com.xpandit.xray</groupId>
+                <artifactId>xray-maven-plugin</artifactId>
+                <version>0.9.0</version>
+                <configuration>
+                    <jiraBaseUrl>https://gopal2773.atlassian.net</jiraBaseUrl>
+                    <serverUrl>https://xray.cloud.getxray.app/api/v2</serverUrl>
+                    <clientId>A7D5E55BC69E460EB973193769391931</clientId>
+                    <clientSecret>3d958e56727c7147e6de933139de9f4d725ab19dbbdd46aee6a806911aea8259</clientSecret>
+                    <projectKey>SCRUM</projectKey>
+                    <testExecKey>SCRUM-3</testExecKey> &lt;!&ndash; optional &ndash;&gt;
+                    <importResults>
+                        <format>cucumber</format>
+                        <file>${project.basedir}/target/cucumber-reports/cucumber.json</file>
+                        <multipart>true</multipart> &lt;!&ndash; needed if attachments are file references &ndash;&gt;
+                    </importResults>
+                </configuration>
+            </plugin>-->
+
+
+
+        </plugins>
+    </build>
+
+</project>

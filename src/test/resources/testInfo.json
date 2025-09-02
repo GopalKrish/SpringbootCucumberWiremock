@@ -1,0 +1,8 @@
+{
+  "summary": "Automated Cucumber Test",
+  "description": "This test was created automatically by the Xray Maven plugin.",
+  "labels": ["automation", "cucumber", "regression"],
+  "components": ["Backend", "API"],
+  "testType": "Manual",
+  "requirementKeys": ["SCRUM-10", "SCRUM-11"]
+}
