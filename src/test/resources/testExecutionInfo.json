@@ -1,9 +1,0 @@
-{
-  "projectKey": "SCRUM",
-  "summary": "Automated Test Execution via Maven",
-  "description": "This Test Execution is created automatically by xray:import-execution",
-  "testEnvironments": ["DEV"],
-  "revision": "1.0",
-  "user": "your.jira.username@example.com",
-  "testPlanKey": "SCRUM-3"
-}

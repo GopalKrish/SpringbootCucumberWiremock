@@ -1,0 +1,16 @@
+{
+  "fields": {
+    "project": {
+      "key": "SCRUM"
+    },
+    "summary": "",
+    "description": "This test execution contains automated test results",
+    "issuetype": {
+      "name": "Test Execution"
+    },
+    "labels": [
+      "automated",
+      "regression"
+    ]
+  }
+}

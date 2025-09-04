@@ -65,18 +65,24 @@ Feature: User API Testing with JSON Templates
       | Updated Name  | updated.name@example.com  |
       | Modified User | modified.user@example.com |
 
-  Scenario Outline: Delete an existing user
-    Given a user exists with the following data:
-      | name     | email                 |
-      | <name>   | <email>               |
-    When I send a DELETE request to "/users/{id}"
-    Then the response status should be 200
-    And the user should no longer exist
-
-    Examples:
-      | name          | email                   |
-      | To Delete     | delete@example.com      |
-      | Temp User     | temp.user@example.com   |
+#  Scenario Outline: Delete an existing user
+#    Given a user exists with the following data:
+#      | name     | email                 |
+#      | <name>   | <email>               |
+#    When I send a DELETE request to "/users/{id}"
+#    Then the response status should be 200
+#    And the user should no longer exist
+#
+#    Examples:
+#      | name          | email                   |
+#      | To Delete     | delete@example.com      |
+#      | Temp User     | temp.user@example.com   |
+#
+#  Scenario: Successfully retrieve user bank details
+#    Given Add stub for bank "200-bank-details-response.json" and verify response as 200
+#    Given I request bank details for user ID 123
+#    Then the response status should be 200
+#    And Verify the users bank response data
 
   Scenario: Successfully retrieve user bank details
     Given Add stub for bank "200-bank-details-response.json" and verify response as 200

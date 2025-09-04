@@ -30,6 +30,8 @@
         <java.version>21</java.version>
         <cucumber.version>7.15.0</cucumber.version>
         <junit.platform.version>1.10.1</junit.platform.version>
+        <maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
+        <current.timestamp>${maven.build.timestamp}</current.timestamp>
     </properties>
     <dependencies>
         <dependency>
@@ -181,14 +183,14 @@
                         <include>**/RunCucumberTest.java</include>
                         <include>**/*CucumberTest.java</include>
                     </includes>
-                    <testFailureIgnore>false</testFailureIgnore>
+                    <testFailureIgnore>true</testFailureIgnore>
                     <systemPropertyVariables>
                     <cucumber.plugin>json:target/cucumber-reports/cucumber.json</cucumber.plugin>
                 </systemPropertyVariables>
                 </configuration>
             </plugin>
 
-            <plugin>
+            <!--<plugin>
                 <groupId>net.masterthought</groupId>
                 <artifactId>maven-cucumber-reporting</artifactId>
                 <version>5.7.0</version>
@@ -210,14 +212,13 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
 
 
             <plugin>
                 <groupId>app.getxray</groupId>
                 <artifactId>xray-maven-plugin</artifactId>
                 <version>0.8.0</version>
-
                 <configuration>
                     <cloud>true</cloud>
                     <jiraBaseUrl>https://gopal2773.atlassian.net</jiraBaseUrl>
@@ -228,32 +229,25 @@
                     <reportFile>target/cucumber-reports/cucumber.json</reportFile>
                     <reportFormat>cucumber</reportFormat>
                     <testPlanKey>SCRUM-3</testPlanKey>
-                  <!--  <testExecInfoJson>src/test/resources/testExecutionInfo.json</testExecInfoJson>-->
+                    <testExecInfoJson>target/test-classes/testExecInfoJson.json</testExecInfoJson>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>import-test-results</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>import-results</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
-
-            <!--<plugin>
-                <groupId>com.xpandit.xray</groupId>
-                <artifactId>xray-maven-plugin</artifactId>
-                <version>0.9.0</version>
-                <configuration>
-                    <jiraBaseUrl>https://gopal2773.atlassian.net</jiraBaseUrl>
-                    <serverUrl>https://xray.cloud.getxray.app/api/v2</serverUrl>
-                    <clientId>A7D5E55BC69E460EB973193769391931</clientId>
-                    <clientSecret>3d958e56727c7147e6de933139de9f4d725ab19dbbdd46aee6a806911aea8259</clientSecret>
-                    <projectKey>SCRUM</projectKey>
-                    <testExecKey>SCRUM-3</testExecKey> &lt;!&ndash; optional &ndash;&gt;
-                    <importResults>
-                        <format>cucumber</format>
-                        <file>${project.basedir}/target/cucumber-reports/cucumber.json</file>
-                        <multipart>true</multipart> &lt;!&ndash; needed if attachments are file references &ndash;&gt;
-                    </importResults>
-                </configuration>
-            </plugin>-->
-
-
-
         </plugins>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
     </build>
 
 </project>

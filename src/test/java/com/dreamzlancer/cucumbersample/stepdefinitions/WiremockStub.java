@@ -27,30 +27,6 @@ public class WiremockStub {
     public static void beforeAll() {
         wireMockServer = new WireMockServer(WireMockConfiguration.options().port(8089));
         wireMockServer.start();
-        wireMockServer.addMockServiceRequestListener((request, response) -> {
-            // Use the WireMockLogger instead of direct logging
-            WireMockLogger.logWireMockRequest(
-                    request.getMethod().getName(),
-                    request.getUrl(),
-                    request.getHeaders().toString(),
-                    request.getBodyAsString()
-            );
-
-            WireMockLogger.logWireMockResponse(
-                    response.getStatus(),
-                    response.getHeaders().toString(),
-                    response.getBodyAsString()
-            );
-
-            // Also log as a single interaction
-            WireMockLogger.logWireMockInteraction(
-                    request.getMethod().getName(),
-                    request.getUrl(),
-                    response.getStatus(),
-                    request.getBodyAsString(),
-                    response.getBodyAsString()
-            );
-        });
     }
 
     @Before
