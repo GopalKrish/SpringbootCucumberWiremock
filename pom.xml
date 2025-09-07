@@ -229,7 +229,7 @@
                     <reportFile>target/cucumber-reports/cucumber.json</reportFile>
                     <reportFormat>cucumber</reportFormat>
                     <testPlanKey>SCRUM-3</testPlanKey>
-                    <testExecInfoJson>target/test-classes/testExecInfoJson.json</testExecInfoJson>
+                   <!-- <testExecInfoJson>target/test-classes/testExecInfoJson.json</testExecInfoJson>-->
                 </configuration>
                 <executions>
                     <execution>
