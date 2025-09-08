@@ -72,6 +72,17 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- Cucumber -->
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -238,6 +249,30 @@
                         <goals>
                             <goal>import-results</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>xray-cloud-import</id>
+                        <phase>none</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.dreamzlancer.cucumbersample.utils.XrayCloudBatchImporter</mainClass>
+                            <arguments>
+                                <argument>A7D5E55BC69E460EB973193769391931</argument>
+                                <argument>3d958e56727c7147e6de933139de9f4d725ab19dbbdd46aee6a806911aea8259</argument>
+                                <argument>SCRUM</argument>
+                                <argument>src/test/resources/features</argument>
+                            </arguments>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
