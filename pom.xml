@@ -191,8 +191,8 @@
                 <version>3.1.2</version>
                 <configuration>
                     <includes>
-                        <include>**/RunCucumberTest.java</include>
-                        <include>**/*CucumberTest.java</include>
+                        <include>**/*Test.java</include>
+                        <include>**/*Tests.java</include>
                     </includes>
                     <testFailureIgnore>true</testFailureIgnore>
                     <systemPropertyVariables>

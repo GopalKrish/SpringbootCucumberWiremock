@@ -60,7 +60,7 @@ class UserControllerTest {
     @Test
     void getUserById_WhenUserDoesNotExist_ShouldReturnNotFound() throws Exception {
         // Arrange
-        when(userService.getUserById(anyLong())).thenReturn(ResponseEntity.ok(testUser));
+        when(userService.getUserById(anyLong())).thenReturn(ResponseEntity.ok(null));
 
         // Act & Assert
         mockMvc.perform(get("/api/users/{id}", 999L)
