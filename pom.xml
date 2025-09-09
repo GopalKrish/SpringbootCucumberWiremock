@@ -30,9 +30,6 @@
         <java.version>21</java.version>
         <cucumber.version>7.15.0</cucumber.version>
         <junit.platform.version>1.10.1</junit.platform.version>
-        <maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
-        <current.timestamp>${maven.build.timestamp}</current.timestamp>
-        <bamboo.buildNumber>${env.BAMBOO_BUILD_NUMBER}</bamboo.buildNumber>
     </properties>
     <dependencies>
         <dependency>
