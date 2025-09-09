@@ -292,14 +292,24 @@
                             <target>
                                 <echo>Updating JIRA JSON with build number: ${env.bamboo_buildNumber}</echo>
 
-                                <![CDATA[
+                                <!-- Check if file exists using available task -->
+                                <available file="src/test/resources/testExecInfoJson.json" property="jsonfile.exists"/>
 
-                    <!-- Alternative: if you want to replace any text in summary -->
-                    <replaceregexp file="src/test/resources/testExecInfoJson.json"
-                                   match="\"summary\": \"[^\"]*\""
-                                   replace="\"summary\": \"Test Automation - ${env.bamboo_buildNumber}\""
-                                   byline="true"/>
-                    ]]>
+                                <condition property="jsonfile.missing">
+                                    <not>
+                                        <isset property="jsonfile.exists"/>
+                                    </not>
+                                </condition>
+
+                                <fail if="jsonfile.missing" message="JSON file not found: src/test/resources/testExecInfoJson.json"/>
+
+                                <!-- Perform the replacement -->
+                                <replaceregexp file="src/test/resources/testExecInfoJson.json"
+                                               match="Test Automation - \{\$bamboo\.buildNumber\}"
+                                               replace="Test Automation - ${env.bamboo_buildNumber}"
+                                               byline="true"/>
+
+                                <echo>JSON file updated successfully!</echo>
                             </target>
                         </configuration>
                     </execution>
