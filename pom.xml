@@ -279,8 +279,14 @@
             </plugin>-->
 
         </plugins>
-
         <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>testExecInfoJson.json</exclude>
+                </excludes>
+            </testResource>
             <testResource>
                 <directory>src/test/resources</directory>
                 <filtering>true</filtering>
