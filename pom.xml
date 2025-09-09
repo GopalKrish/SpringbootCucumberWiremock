@@ -226,6 +226,32 @@
                 </executions>
             </plugin>-->
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-and-filter-json</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/filtered-resources</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/test/resources</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>testExecInfoJson.json</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>app.getxray</groupId>
@@ -241,7 +267,7 @@
                     <reportFile>target/cucumber-reports/cucumber.json</reportFile>
                     <reportFormat>cucumber</reportFormat>
                     <testPlanKey>SCRUM-3</testPlanKey>
-                    <testExecInfoJson>target/test-classes/testExecInfoJson.json</testExecInfoJson>
+                    <testExecInfoJson>target/filtered-resources/testExecInfoJson.json</testExecInfoJson>
                 </configuration>
                 <executions>
                     <execution>
@@ -279,22 +305,6 @@
             </plugin>-->
 
         </plugins>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <filtering>false</filtering>
-                <excludes>
-                    <exclude>testExecInfoJson.json</exclude>
-                </excludes>
-            </testResource>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>testExecInfoJson.json</include>
-                </includes>
-            </testResource>
-        </testResources>
-    </build>
+        </build>
 
 </project>
