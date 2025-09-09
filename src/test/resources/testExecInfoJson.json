@@ -3,18 +3,16 @@
     "project": {
       "key": "SCRUM"
     },
-    "summary": "Test Automation - ${env.bamboo_buildNumber}",
-    "description": "This test execution contains automated test results for build ${env.bamboo_buildNumber}",
+    "summary": "Test Automation - {$bamboo.buildNumber}",
+    "description": "This test execution contains automated test results",
     "issuetype": {
       "name": "Test Execution"
     },
     "labels": [
       "automated",
-      "regression",
-      "build-${env.bamboo_buildNumber}"
+      "regression"
     ],
     "customfield_10058":  "25 May 2025",
     "priority": {"name": "High"}
-
   }
 }

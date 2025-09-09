@@ -290,27 +290,14 @@
                         </goals>
                         <configuration>
                             <target>
-                                <echo>Updating JIRA JSON payload with build information</echo>
+                                <echo>Updating JIRA JSON with build number: ${env.bamboo_buildNumber}</echo>
 
                                 <![CDATA[
-                    <!-- Update summary with build number -->
+
+                    <!-- Alternative: if you want to replace any text in summary -->
                     <replaceregexp file="src/test/resources/testExecInfoJson.json"
-                                   match="(\"summary\": \")[^\"]*(\")"
-                                   replace="\1Test Automation - ${env.bamboo_buildNumber}\2"
-                                   byline="true"/>
-
-                    <!-- Update description with build number -->
-                    <replaceregexp file="src/test/resources/testExecInfoJson.json"
-                                   match="(\"description\": \")[^\"]*(\")"
-                                   replace="\1This test execution contains automated test results for build ${env.bamboo_buildNumber}\2"
-                                   byline="true"/>
-
-
-
-                    <!-- Add build number to labels -->
-                    <replaceregexp file="src/test/resources/testExecInfoJson.json"
-                                   match="(\"labels\": \[)[^\]]*(\])"
-                                   replace="\1\"automated\", \"regression\", \"build-${env.bamboo_buildNumber}\"\2"
+                                   match="\"summary\": \"[^\"]*\""
+                                   replace="\"summary\": \"Test Automation - ${env.bamboo_buildNumber}\""
                                    byline="true"/>
                     ]]>
                             </target>
