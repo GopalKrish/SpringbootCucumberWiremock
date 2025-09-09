@@ -3,8 +3,8 @@
     "project": {
       "key": "SCRUM"
     },
-    "summary": "Test Automation - ${env.BAMBOO_BUILD_NUMBER}",
-    "description": "This test execution contains automated test results",
+    "summary": "Test Automation - .${envBAMBOO_BUILD_NUMBER}",
+    "description": "This test execution contains automated test results ${env.bamboo_buildNumber}",
     "issuetype": {
       "name": "Test Execution"
     },

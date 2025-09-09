@@ -300,6 +300,7 @@
                             <includeProjectDependencies>true</includeProjectDependencies>
                             <includePluginDependencies>true</includePluginDependencies>
                             <classpathScope>test</classpathScope>
+                            <echo>Updating JIRA JSON with build number: ${env.bamboo_buildNumber}</echo>
                             <systemProperties>
                                 <systemProperty>
                                     <key>bamboo.buildNumber</key>
