@@ -148,6 +148,12 @@
             <scope>test</scope>
         </dependency>
 
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.15.2</version>
+            </dependency>
+
         <dependency>
             <groupId>org.wiremock</groupId>
             <artifactId>wiremock-standalone</artifactId>
@@ -223,32 +229,7 @@
                 </executions>
             </plugin>-->
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.0</version>
-                <executions>
-                    <execution>
-                        <id>copy-and-filter-json</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/filtered-resources</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/test/resources</directory>
-                                    <filtering>true</filtering>
-                                    <includes>
-                                        <include>testExecInfoJson.json</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
 
             <plugin>
                 <groupId>app.getxray</groupId>
@@ -264,7 +245,7 @@
                     <reportFile>target/cucumber-reports/cucumber.json</reportFile>
                     <reportFormat>cucumber</reportFormat>
                     <testPlanKey>SCRUM-3</testPlanKey>
-                    <testExecInfoJson>target/filtered-resources/testExecInfoJson.json</testExecInfoJson>
+                    <testExecInfoJson>${project.build.directory}/testExecInfoJson.json</testExecInfoJson>
                 </configuration>
                 <executions>
                     <execution>
@@ -300,6 +281,35 @@
                     </execution>
                 </executions>
             </plugin>-->
+
+
+            <!-- 1. Exec plugin to update JSON -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>update-test-exec-json</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.dreamzlancer.cucumbersample.utils.TestExecJsonUpdater</mainClass>
+                            <includeProjectDependencies>true</includeProjectDependencies>
+                            <includePluginDependencies>true</includePluginDependencies>
+                            <classpathScope>test</classpathScope>
+                            <systemProperties>
+                                <systemProperty>
+                                    <key>bamboo.buildNumber</key>
+                                    <value>${env.BAMBOO_BUILD_NUMBER}</value>
+                                </systemProperty>
+                            </systemProperties>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
         </plugins>
         </build>
