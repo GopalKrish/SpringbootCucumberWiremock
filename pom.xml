@@ -196,8 +196,8 @@
                     </includes>
                     <testFailureIgnore>true</testFailureIgnore>
                     <systemPropertyVariables>
-                    <cucumber.plugin>json:target/cucumber-reports/cucumber.json</cucumber.plugin>
-                </systemPropertyVariables>
+                        <cucumber.plugin>json:target/cucumber-reports/cucumber.json</cucumber.plugin>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
 
@@ -235,7 +235,7 @@
                     <jiraBaseUrl>https://gopal2773.atlassian.net</jiraBaseUrl>
                     <clientId>A7D5E55BC69E460EB973193769391931</clientId>
                     <clientSecret>3d958e56727c7147e6de933139de9f4d725ab19dbbdd46aee6a806911aea8259</clientSecret>
-                     <projectKey>SCRUM</projectKey>
+                    <projectKey>SCRUM</projectKey>
                     <inputFeatures>src/test/resources/features</inputFeatures>
                     <reportFile>target/cucumber-reports/cucumber.json</reportFile>
                     <reportFormat>cucumber</reportFormat>
@@ -276,6 +276,50 @@
                     </execution>
                 </executions>
             </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <echo>Updating JIRA JSON payload with build information</echo>
+
+                                <![CDATA[
+                    <!-- Update summary with build number -->
+                    <replaceregexp file="src/test/resources/testExecInfoJson.json"
+                                   match="(\"summary\": \")[^\"]*(\")"
+                                   replace="\1Test Automation - ${env.bamboo_buildNumber}\2"
+                                   byline="true"/>
+
+                    <!-- Update description with build number -->
+                    <replaceregexp file="src/test/resources/testExecInfoJson.json"
+                                   match="(\"description\": \")[^\"]*(\")"
+                                   replace="\1This test execution contains automated test results for build ${env.bamboo_buildNumber}\2"
+                                   byline="true"/>
+
+
+
+                    <!-- Add build number to labels -->
+                    <replaceregexp file="src/test/resources/testExecInfoJson.json"
+                                   match="(\"labels\": \[)[^\]]*(\])"
+                                   replace="\1\"automated\", \"regression\", \"build-${env.bamboo_buildNumber}\"\2"
+                                   byline="true"/>
+                    ]]>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
         </plugins>
         <testResources>
             <testResource>
