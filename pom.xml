@@ -241,7 +241,7 @@
                     <reportFile>target/cucumber-reports/cucumber.json</reportFile>
                     <reportFormat>cucumber</reportFormat>
                     <testPlanKey>SCRUM-3</testPlanKey>
-                    <testExecInfoJson>src/test/resources/testExecInfoJson.json</testExecInfoJson>
+                    <testExecInfoJson>target/test-classes/testExecInfoJson.json</testExecInfoJson>
                 </configuration>
                 <executions>
                     <execution>
@@ -280,15 +280,15 @@
 
         </plugins>
 
-        <resources>
-            <resource>
+        <testResources>
+            <testResource>
                 <directory>src/test/resources</directory>
                 <filtering>true</filtering>
                 <includes>
                     <include>testExecInfoJson.json</include>
                 </includes>
-            </resource>
-        </resources>
+            </testResource>
+        </testResources>
     </build>
 
 </project>
