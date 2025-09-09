@@ -3,7 +3,7 @@
     "project": {
       "key": "SCRUM"
     },
-    "summary": "Test Automation - {$bamboo.buildNumber}",
+    "summary": "Test Automation - ${bamboo.buildNumber}",
     "description": "This test execution contains automated test results",
     "issuetype": {
       "name": "Test Execution"
@@ -16,3 +16,4 @@
     "priority": {"name": "High"}
   }
 }
+

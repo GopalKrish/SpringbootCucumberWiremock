@@ -32,6 +32,7 @@
         <junit.platform.version>1.10.1</junit.platform.version>
         <maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
         <current.timestamp>${maven.build.timestamp}</current.timestamp>
+        <bamboo.buildNumber>${env.BAMBOO_BUILD_NUMBER}</bamboo.buildNumber>
     </properties>
     <dependencies>
         <dependency>
@@ -253,7 +254,7 @@
                 </executions>
             </plugin>
 
-            <plugin>
+            <!--<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
@@ -275,55 +276,19 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <echo>Updating JIRA JSON with build number: ${env.bamboo_buildNumber}</echo>
-
-                                <!-- Check if file exists using available task -->
-                                <available file="src/test/resources/testExecInfoJson.json" property="jsonfile.exists"/>
-
-                                <condition property="jsonfile.missing">
-                                    <not>
-                                        <isset property="jsonfile.exists"/>
-                                    </not>
-                                </condition>
-
-                                <fail if="jsonfile.missing" message="JSON file not found: src/test/resources/testExecInfoJson.json"/>
-
-                                <!-- Perform the replacement -->
-                                <replaceregexp file="src/test/resources/testExecInfoJson.json"
-                                               match="Test Automation - \{\$bamboo\.buildNumber\}"
-                                               replace="Test Automation - ${env.bamboo_buildNumber}"
-                                               byline="true"/>
-
-                                <echo>JSON file updated successfully!</echo>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
+            </plugin>-->
 
         </plugins>
-        <testResources>
-            <testResource>
+
+        <resources>
+            <resource>
                 <directory>src/test/resources</directory>
                 <filtering>true</filtering>
-            </testResource>
-        </testResources>
+                <includes>
+                    <include>testExecInfoJson.json</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 
 </project>
